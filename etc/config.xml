@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <crypto_gateway>
+                <active>1</active>
+                <model>QFPay\PaymentGateway\Model\Methods\PaymentGateway</model>
+                <order_status>pending</order_status>
+                <title>Cripto Gateway</title>
+                <allowspecific>0</allowspecific>
+                <group>PaymentGateway</group>
+            </crypto_gateway>
+            <qf_checkout>
+                <active>1</active>
+                <model>QFPay\PaymentGateway\Model\Methods\QfCheckout</model>
+                <order_status>pending</order_status>
+                <title>QFPay Secure Checkout</title>
+                <allowspecific>0</allowspecific>
+                <auto_invoice_enabled>1</auto_invoice_enabled>
+                <group>qfcheckout</group>
+            </qf_checkout>
+        </payment>
+
+        <translate>
+            <modules>
+                <Company_Module>
+                    <files>
+                        <default>Company_Module.csv</default>
+                    </files>
+                </Company_Module>
+            </modules>
+        </translate>
+
+    </default>
+</config>
+
+

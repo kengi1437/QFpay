@@ -1,0 +1,49 @@
+<?php
+use QFPay\PaymentGateway\Helper\Utils;
+
+// Retrieve order
+// $orderId     = $block->getLastOrderId();//订单号
+$paymentData = $block->getPaymentData();//含有币种信息 支付方式
+$quoteData   = $block->getQuote();//含有金额等信息
+$successUrl  = $block->getSuccessUrl();//成功回调地址
+$failUrl     = $block->getFailUrl();//失败回调地址
+$noticeUrl    = $block->getCallbackUrl();//主动通知url
+$realOrderId    = $block->getRealOrderId();//获取orderid的第二种方法
+$orderIncId = $block->getOrderIncrementalId();
+
+$data = [
+    'out_trade_no'=>$orderIncId,
+    'txcurrcd' => $paymentData['currency_code'],
+    'txamt' => floatval($quoteData->getBaseGrandTotal())*100,
+    'return_url' => $successUrl,
+    'failed_url' => $failUrl,
+    'notify_url' => $noticeUrl,
+    'appcode' => $paymentData['code'],
+    'paysource' => $paymentData['paysource'],
+    'sign_type' => $paymentData['sign_type'],
+];
+if (isset($paymentData['pay_tag'])){
+    $data['pay_tag'] = $paymentData['pay_tag'];
+}
+if (!empty($paymentData['merchant_id'])){
+    $data['mchntid'] = $paymentData['merchant_id'];
+}
+
+$sign =  Utils::getSign($paymentData['appscrect'],$data);
+
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+//var_dump($paymentData['pay_type']);exit();
+?>
+<form name="PaymentGatewayform" method="get">
+    <button type="button" value="Click here to complete checkout at qfpay"></button>
+</form>
+<script type="text/javascript">
+    if ("<?php echo $paymentData['merchant_id']; ?>"){
+        window.location = "https://openapi-hk.qfapi.com/checkstand/#/?appcode=<?php echo $paymentData['code']; ?>&failed_url=<?php echo $failUrl; ?>&notify_url=<?php echo $noticeUrl; ?>&out_trade_no=<?php echo $orderIncId; ?>&paysource=<?php echo $paymentData['paysource']; ?>&return_url=<?php echo $successUrl; ?>&sign_type=<?php echo $paymentData['sign_type']; ?>&txamt=<?php echo floatval($quoteData->getBaseGrandTotal())*100; ?>&txcurrcd=<?php echo $paymentData['currency_code']; ?>&sign=<?php echo $sign; ?>&mchntid=<?php echo $paymentData['merchant_id']; ?>";
+    } else {
+        window.location = "https://openapi-hk.qfapi.com/checkstand/#/?appcode=<?php echo $paymentData['code']; ?>&failed_url=<?php echo $failUrl; ?>&notify_url=<?php echo $noticeUrl; ?>&out_trade_no=<?php echo $orderIncId; ?>&paysource=<?php echo $paymentData['paysource']; ?>&return_url=<?php echo $successUrl; ?>&sign_type=<?php echo $paymentData['sign_type']; ?>&txamt=<?php echo floatval($quoteData->getBaseGrandTotal())*100; ?>&txcurrcd=<?php echo $paymentData['currency_code']; ?>&sign=<?php echo $sign; ?>";
+    }
+</script>

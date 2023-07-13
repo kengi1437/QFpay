@@ -1,0 +1,7 @@
+<?php
+
+echo '<h3>Ordered with QFPayGateway</h3>';
+if ($url = $block->getPaymentGatewayInvoiceUrl()) {
+    echo '<p><a href="' . $url . '" target="_blank">View Invoice</a></p>';
+}
+?>
