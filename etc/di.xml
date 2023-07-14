@@ -17,18 +17,4 @@
     <type name="QFPay\PaymentGateway\Config\ConfigPlugin">
         <plugin name="admin_system_config_save_plugin" type="QFPay\PaymentGateway\Plugin\ConfigPlugin" sortOrder="1"/>
     </type>
-    <virtualType name="Magento\Checkout\Model\CompositeConfigProvider" shared="false">
-        <arguments>
-            <argument name="configProviders" xsi:type="array">
-                <item name="qf_payment_gateway_config_provider" xsi:type="object">QFPay\PaymentGateway\Model\QFPayConfigProvider</item>
-            </argument>
-        </arguments>
-    </virtualType>
-    <type name="Magento\Checkout\Model\CompositeConfigProvider">
-        <arguments>
-            <argument name="configProviders" xsi:type="array">
-                <item name="qf_payment_gateway_config_provider" xsi:type="object">QFPay\PaymentGateway\Model\QFPayConfigProvider</item>
-            </argument>
-        </arguments>
-    </type>
 </config>

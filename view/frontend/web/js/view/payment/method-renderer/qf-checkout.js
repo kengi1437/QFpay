@@ -19,9 +19,6 @@ define(
             defaults: {
                 template: 'QFPay_PaymentGateway/payment/crypto_payment'
             },
-            getLogoUrl: function () {
-                return window.checkoutConfig.payment.qf_checkout.logoUrl;
-            },
             getCode: function() {
                 return 'qf_checkout';
             },
