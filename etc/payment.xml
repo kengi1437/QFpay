@@ -6,7 +6,7 @@
             <label>Payment Methods</label>
         </group>
         <group id="qfcheckout">
-            <label>QFPay Secure Checkout</label>
+            <label><![CDATA[Payment Checkout (Visa/Master/Payme/Alipay HK/Wechat Pay HK/Union Pay)\n付款方式((Visa/Master/Payme/支付寶香港/微信支付香港/銀聯卡及雲閃付)]]></label>
         </group>
     </groups>
     <methods>
